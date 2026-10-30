@@ -1,0 +1,17 @@
+name: Local fixture checks
+on:
+  push:
+    branches: ['trial/**']
+  pull_request:
+    branches: [main, trial/setup]
+permissions:
+  contents: read
+jobs:
+  fixtures:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@1.94
+      - run: cargo +1.94 test --locked --manifest-path review-lab/Cargo.toml
