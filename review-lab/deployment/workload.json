@@ -64,30 +64,17 @@
         "containers": [
           {
             "name": "worker",
-            "image": "example.invalid/worker:fixture",
-            "volumeMounts": [
+            "image": "example.invalid/worker:fixture"
+          },
+          {
+            "name": "gateway",
+            "image": "example.invalid/gateway:fixture",
+            "ports": [
               {
-                "name": "worker-api",
-                "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
-                "readOnly": true
+                "name": "http",
+                "containerPort": 8080
               }
             ]
-          }
-        ],
-        "automountServiceAccountToken": false,
-        "volumes": [
-          {
-            "name": "worker-api",
-            "projected": {
-              "sources": [
-                {
-                  "serviceAccountToken": {
-                    "path": "token",
-                    "expirationSeconds": 3600
-                  }
-                }
-              ]
-            }
           }
         ]
       }
