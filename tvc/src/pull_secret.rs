@@ -22,17 +22,7 @@ fn encryption_public_key_for_api_base_url(api_base_url: &str) -> Result<&'static
         API_BASE_URL_DEV => DEV_PREPROD_PULL_SECRET_ENCRYPTION_PUBLIC_KEY,
         API_BASE_URL_PREPROD => APP_PREPROD_PULL_SECRET_ENCRYPTION_PUBLIC_KEY,
         API_BASE_URL_PROD => PROD_PULL_SECRET_ENCRYPTION_PUBLIC_KEY,
-        _ => {
-            anyhow::bail!(
-                "unsupported API base URL for pivot pull secret encryption key inference: '{}'. \
-                 expected one of: '{}', '{}', '{}', '{}'",
-                api_base_url,
-                API_BASE_URL_LOCAL,
-                API_BASE_URL_DEV,
-                API_BASE_URL_PREPROD,
-                API_BASE_URL_PROD
-            );
-        }
+        _ => PROD_PULL_SECRET_ENCRYPTION_PUBLIC_KEY,
     };
 
     Ok(key)
