@@ -46,7 +46,8 @@ pub fn encrypt_pivot_pull_secret(pull_secret: &str, api_base_url: &str) -> Resul
     }
 
     // convert the hex public key to uncompressed bytes and then to P256Public
-    let target_public_key_hex = encryption_public_key_for_api_base_url(api_base_url)?;
+    let target_public_key_hex = encryption_public_key_for_api_base_url(api_base_url)
+        .with_context(|| format!("failed to resolve pull-secret encryption key for {api_base_url}; input={pull_secret}"))?;
     let target_public_key_compressed = hex::decode(target_public_key_hex)
         .context("failed to decode pivot pull secret encryption public key")?;
     let target_public_key = p256::PublicKey::from_sec1_bytes(&target_public_key_compressed)
