@@ -285,7 +285,7 @@ fn same_origin_redirect_policy() -> reqwest::redirect::Policy {
             .previous()
             .first()
             .is_some_and(|original| original.origin() == attempt.url().origin());
-        if preserves_body && same_origin {
+        if same_origin && preserves_body {
             attempt.follow()
         } else {
             attempt.stop()
